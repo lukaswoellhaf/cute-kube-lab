@@ -1,15 +1,13 @@
 .DEFAULT_GOAL := help
-SHELL := bash
 
 # ===== Default config (override via: make start PROFILE=...) =====
-PROFILE ?= minilab
+PROFILE ?= cute-kube-lab
 DRIVER  ?= docker      # docker | podman | hyperkit | virtualbox | qemu
 CPUS    ?= 2
 MEMORY  ?= 4096
 NODES   ?= 1
 K8S_VERSION ?=         # e.g. v1.30.3 (empty = latest)
 ADDONS  ?= ingress metrics-server
-CTX := minikube-$(PROFILE)
 
 START_FLAGS := --profile $(PROFILE) --driver=$(DRIVER) --cpus=$(CPUS) --memory=$(MEMORY) --nodes=$(NODES)
 ifneq ($(strip $(K8S_VERSION)),)
@@ -44,7 +42,6 @@ env:
 	@echo NODES=$(NODES)
 	@echo K8S_VERSION=$(K8S_VERSION)
 	@echo ADDONS=$(ADDONS)
-	@echo CTX=$(CTX)
 
 ## check: Verify required tools are available
 check:
@@ -56,12 +53,6 @@ check:
 start: check
 	@echo "Starting: profile=$(PROFILE) driver=$(DRIVER) cpus=$(CPUS) mem=$(MEMORY) nodes=$(NODES) k8s=$(if $(K8S_VERSION),$(K8S_VERSION),latest)"
 	minikube start $(START_FLAGS)
-	# Switch kubectl context (prefer profile-specific name)
-	@if kubectl config get-contexts "$(CTX)" >/dev/null 2>&1; then \
-	  kubectl config use-context "$(CTX)"; \
-	else \
-	  kubectl config use-context minikube; \
-	fi
 	@echo "Tip: run 'make addons' to enable: $(ADDONS)"
 
 ## resume: Resume an existing cluster without reapplying flags
