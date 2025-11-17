@@ -1,0 +1,13 @@
+{
+    "yaml.schemas": {
+        "https://json.schemastore.org/chart": "helm-charts/**/Chart.yaml"
+    },
+    "yaml.customTags": [
+        "!reference sequence"
+    ],
+    "files.associations": {
+        "helm-charts/**/*.tpl": "helm",
+        "helm-charts/**/templates/*.yaml": "helm",
+        "helm-charts/**/templates/*.yml": "helm"
+    },
+}

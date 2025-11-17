@@ -1,0 +1,12 @@
+Echo service has been deployed!
+
+1. Access the application:
+  kubectl port-forward svc/{{ include "echo-service.fullname" . }} 8080:{{ .Values.service.port }}
+
+  Then visit http://localhost:8080
+
+2. Check pod status:
+  kubectl get pods -l app.kubernetes.io/name={{ include "echo-service.name" . }}
+
+3. View logs:
+  kubectl logs -l app.kubernetes.io/name={{ include "echo-service.name" . }}

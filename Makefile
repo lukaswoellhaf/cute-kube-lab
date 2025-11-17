@@ -47,7 +47,7 @@ env:
 check:
 	@command -v minikube >/dev/null || { echo "minikube not found"; exit 1; }
 	@command -v kubectl  >/dev/null || { echo "kubectl not found";  exit 1; }
-	@echo "All good ✅"
+	@echo "All required tools are available"
 
 ## start: Create/start cluster and set kubectl context
 start: check
@@ -91,4 +91,4 @@ wait:
 	  echo "Waiting for ingress-nginx controller..."; \
 	  kubectl -n ingress-nginx rollout status deploy/ingress-nginx-controller --timeout=180s; \
 	fi
-	@echo "Ready ✅"
+	@echo "Ready"

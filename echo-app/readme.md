@@ -24,7 +24,7 @@ a JSON document describing the request it received.
 
 ## How to Use
 
-### 0 Ensure ingress is enabled and ready (you already have targets)
+### 0 Ensure ingress is enabled and ready
 ```
 make addons
 make wait
